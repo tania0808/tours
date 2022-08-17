@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import Tours from "./components/Tours";
-// ATTENTION!!!!!!!!!!
-// I SWITCHED TO PERMANENT DOMAIN
 const url = "https://course-api.com/react-tours-project";
 
 function App() {

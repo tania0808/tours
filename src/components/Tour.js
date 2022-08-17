@@ -3,16 +3,14 @@ import React, { useState } from "react";
 const Tour = ({ id, name, image, info, price, tours, setTours }) => {
   const [isReadMore, setIsReadMore] = useState(true);
 
-  console.log(tours);
   const deleteTour = (id) => {
-    const newTours = tours.filter(tour => tour.id !== id);
+    const newTours = tours.filter((tour) => tour.id !== id);
     setTours(newTours);
-  }
-
+  };
 
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
-  }
+  };
 
   return (
     <div className="card">
@@ -23,13 +21,15 @@ const Tour = ({ id, name, image, info, price, tours, setTours }) => {
           <span>$ {price}</span>
         </div>
         <p className="description">
-          { isReadMore ? info.slice(0, 200) : info}
+          {isReadMore ? info.slice(0, 200) : info}
           <span onClick={toggleReadMore}>
-            { isReadMore ? ' Read More' : ' Show Less'}
+            {isReadMore ? " Read More" : " Show Less"}
           </span>
         </p>
       </div>
-      <button onClick={() => deleteTour(id)} className="btn-red" >Not Interested</button>
+      <button onClick={() => deleteTour(id)} className="btn-red">
+        Not Interested
+      </button>
     </div>
   );
 };
