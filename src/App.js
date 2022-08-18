@@ -6,39 +6,57 @@ const url = "https://course-api.com/react-tours-project";
 function App() {
   const [loading, setLoading] = useState(true);
   const [tours, setTours] = useState([]);
-
+  const [isError, setIsError] = useState(false);
   const fetchTours = async () => {
-    const response = await fetch(url);
-    const data = await response.json();
-    setLoading(false);
-    setTours(data);
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setLoading(false);
+      setTours(data);
+    } catch (error) {
+      setLoading(false);
+      setIsError(true);
+    }
   };
 
   const refreshTours = () => {
     fetchTours();
-  }
+  };
 
   useEffect(() => {
-    fetchTours()
+    fetchTours();
   }, []);
 
-  if(loading) {
+  if (loading) {
     return <LoadingSpinner />;
   }
+
+  if (error) {
+    return (
+      <div className="container">
+        <h1>Error occured</h1> ;
+      </div>
+    );
+  }
+  
   return (
     <div className="container">
-      { tours.length > 0 ?
-      <>
-        <h1>Our Tours</h1>
-        <div className="underline"></div>
-      </>
-      : <h1>No Tours Left</h1>
-      }
-      
-      { tours.length > 0 ?
-      <Tours tours={tours} setTours={setTours}/>
-      : <button onClick={() => refreshTours()} className="btn-blue">Refresh</button>
-      }
+      {tours.length > 0 ? (
+        <>
+          <h1>Our Tours</h1>
+          <div className="underline"></div>
+        </>
+      ) : (
+        <h1>No Tours Left</h1>
+      )}
+
+      {tours.length > 0 ? (
+        <Tours tours={tours} setTours={setTours} />
+      ) : (
+        <button onClick={() => refreshTours()} className="btn-blue">
+          Refresh
+        </button>
+      )}
     </div>
   );
 }
